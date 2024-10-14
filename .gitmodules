@@ -1,3 +1,12 @@
 [submodule "cmc-ontologies"]
 	path = cmc-ontologies
 	url = https://github.com/Bayer-Group/cmc-ontologies.git
+[submodule "cmc-knowledge-graph-frontend"]
+	path = cmc-knowledge-graph-frontend
+	url = https://github.com/Bayer-Group/cmc-knowledge-graph-frontend.git
+[submodule "cmc-knowledge-graph-backend"]
+	path = cmc-knowledge-graph-backend
+	url = https://github.com/Bayer-Group/cmc-knowledge-graph-backend.git
+[submodule "cmc-knowledge-graph-text2ttl"]
+	path = cmc-knowledge-graph-text2ttl
+	url = https://github.com/Bayer-Group/cmc-knowledge-graph-text2ttl.git
