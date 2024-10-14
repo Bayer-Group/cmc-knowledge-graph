@@ -1,0 +1,3 @@
+[submodule "cmc-knowledge-graph-text2ttl"]
+	path = cmc-knowledge-graph-text2ttl
+	url = https://github.com/Bayer-Group/cmc-knowledge-graph-text2ttl.git
