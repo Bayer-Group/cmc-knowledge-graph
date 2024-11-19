@@ -1,0 +1,56 @@
+version: "3.7"
+services:
+
+# ###################################################################################################
+# # KGE Backend
+# ###################################################################################################
+  cmc-kge-backend:
+    build:
+      context: ./cmc-knowledge-graph-backend
+      dockerfile: Dockerfile
+    command: npm start
+    container_name: cmc-kge-backend
+    ports:
+      - 8080:9090
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    networks:
+      - backend
+      - frontend
+# ###################################################################################################
+# # KGE Editor frontend
+# ###################################################################################################
+  cmc-kge-frontend:
+    container_name: cmc-kge-frontend
+    build:
+      context: ./cmc-knowledge-graph-frontend
+      dockerfile: Dockerfile
+      args:
+        ANGULAR_ENVIRONMENT: docker
+        NODE_OPTIONS: "--max-old-space-size=4096"
+    ports:
+      - 4400:8080
+    networks:
+      - frontend
+
+###################################################################################################
+# Apache Jena Fuseki (SAPRQL server)
+###################################################################################################
+  fuseki:
+    container_name: fuseki
+    image: stain/jena-fuseki
+    volumes:
+      - ./cmc-ontologies:/staging
+    command: bash -c "/staging/loader.sh && exec /jena-fuseki/fuseki-server --update --loc=/fuseki/databases/cmc-dataset /cmc-dataset"
+    environment:
+      - ADMIN_PASSWORD=${GRAPHDATABASE_PASSWORD}
+      - JVM_ARGS=-Xmx2g
+    ports:
+      - 3030:3030
+    networks:
+      - backend
+
+networks:
+  frontend:
+  backend:
